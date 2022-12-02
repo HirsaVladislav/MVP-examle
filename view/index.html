@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, we are lirning MVP - Model-view-presenter</title>
+
+    <script async="async" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script async="async" src="../presenter/index.js"></script>
+</head>
+<body>
+
+    <textarea id="newMessage" cols="30" rows="10"></textarea>
+    <button onclick="addMessage()">Add message</button>
+    <div id="list"></div>
+      
+    <script>
+        window.addEventListener('load', async (event) => {
+            const response = await getAllMessagesRequest();
+            generateList(response.data);
+            console.log(response);
+        });
+
+        const addMessage = async() => {
+            const newMessage = document.getElementById("newMessage");
+            const listDiv = document.getElementById('list');
+            const response = await addMessageRequest(newMessage.value);
+            listDiv.innerHTML = '';
+            newMessage.value = '';
+            generateList(response.data);
+        }
+
+        const generateList = (data) => {
+            const listDiv = document.getElementById('list');
+            const ul = document.createElement('ul');
+            for (let i = 0; i < data.length; ++i) {
+                const li = document.createElement('li');
+                li.innerHTML = data[i].message;
+                ul.appendChild(li);                                 
+            }
+            listDiv.appendChild(ul);
+        }
+    </script>
+</body>
+</html>
