@@ -9,7 +9,7 @@ export const addMessage = async(req, res) => {
     
         if(!existsSync(filePath)) {
             const defaultParams = JSON.stringify([]);
-            writeFile(filePath, defaultParams, 'utf8');
+            await writeFile(filePath, defaultParams, 'utf8');
         };
         
         const json = await readFile(filePath, 'utf-8');
