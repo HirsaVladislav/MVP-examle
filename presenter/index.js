@@ -1,21 +1,26 @@
-const customHeaders = {
-    "Content-Type": "application/json",
+import { addMessageRequest, getAllMessagesRequest } from "./requests.js";
+
+window.addEventListener('load', async (event) => {
+    const response = await getAllMessagesRequest();
+    generateList(response.data);
+});
+
+const addMessage = async() => {
+    const newMessage = document.getElementById("newMessage");
+    const listDiv = document.getElementById('list');
+    const response = await addMessageRequest(newMessage.value);
+    listDiv.innerHTML = '';
+    newMessage.value = '';
+    generateList(response.data);
 }
 
-const addMessageRequest = async (message) => {
-    try {
-        return await axios.post('/addMessage', { message }, {
-            headers: customHeaders,
-        });
-    } catch (error) {
-        console.error(error);
+const generateList = (data) => {
+    const listDiv = document.getElementById('list');
+    const ul = document.createElement('ul');
+    for (let i = 0; i < data.length; ++i) {
+        const li = document.createElement('li');
+        li.innerHTML = data[i].message;
+        ul.appendChild(li);                                 
     }
-};
-
-const getAllMessagesRequest = async () => {
-    try {
-        return await axios.get('/getAllMessages');
-    } catch (error) {
-        console.lerrorog(error);
-    }
-};
+    listDiv.appendChild(ul);
+}

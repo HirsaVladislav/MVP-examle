@@ -2,6 +2,7 @@ import { sendHomePage } from './src/sendHomePage.js';
 import { addMessage } from './src/addMessage.js';
 import { getAllMessages } from './src/getAllMessages.js';
 import { getPresenter } from './src/getPresenter.js';
+import { getPresenterRequests } from './src/getPresenterRequests.js';
 import express from 'express';
 import bodyParser from 'body-parser'; 
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json())
 app.get('/', sendHomePage);
 app.post('/addMessage', addMessage);
 app.get('/presenter/index.js', getPresenter);
+app.get('/presenter/requests.js', getPresenterRequests);
 app.get('/getAllMessages', getAllMessages);
 
 

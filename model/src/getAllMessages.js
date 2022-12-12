@@ -6,7 +6,7 @@ import * as url from 'url';
 export const getAllMessages = async(req, res) => {
   const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
   const filePath = __dirname + '../db/userMesages.json';
-  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Content-Type', 'application/json');
 
   if(!existsSync(filePath)) {
     const defaultParams = JSON.stringify([]);
